@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>添加公司/addCompanyInfo</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css">
+<style>
+	.zc-btn{
+		margin: 10px auto;
+		width: 220px;
+	}
+	.ts-message{
+		width: 220px;
+		height: 40px;
+		line-height: 40px;
+	}
+</style>
+</head>
+<body>
+<!--注册表单开始  -->
+	<div class="container text-center" style="max-width: 500px;margin-top: 60px">
+		<h2 class="page-header text-center">添加公司</h2>
+		<div class="well">
+			<form rel="form" class="addForm" th:object="${companyForm}" action="/company/addCompanyInfo" method="post">
+
+				<div class="ts-message bg-warning" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></div>
+				<label>&nbsp;&nbsp;公司名<input class="form-control"  type="text" name="c_name"> </label><br/>
+				<p th:errors="*{c_name}"></p>
+				<label>&nbsp;公司类型<input class="form-control"  type="text" name="c_type"> </label><br/>
+				<p th:errors="*{c_type}"></p>
+				<label>组织机构代码<input class="form-control"  type="text" name="c_code"> </label><br/>
+				<p th:errors="*{c_code}"></p>
+				<button class="form-control zc-btn">添加公司</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

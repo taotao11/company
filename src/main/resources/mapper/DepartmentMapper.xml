@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--MyBatis 文件头 -->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 获得执行的方法 -->
+<mapper namespace="com.example.company.mapper.DepartmentMapper">
+<!-- 自定义返回结果 -->
+	<resultMap id="department" type="com.example.company.entity.DepartmentBean">
+
+		<result property="d_id" column="d_id" javaType="java.lang.Integer" />
+	 	<result property="d_name" column="d_name" javaType="java.lang.String"/>
+		<result property="d_do" column="c_type" javaType="java.lang.String"/>
+		<result property="c_id" column="c_code" javaType="java.lang.Integer"/>
+	</resultMap>
+	  <!-- id要唯一的，一般是下拉类的方法名 -->
+    <!-- 返回的是什么类型int -->
+    <select id="countUser" parameterType="java.lang.Integer" resultType="int">
+        select count(1) from tb_department WHERE c_id = #{cid}
+    </select>
+	 <!-- 多次插入操作 -->
+	<insert id="insertUser" parameterType="java.util.List">
+		insert into
+		tb_department(d_id,d_name,c_id)
+		value
+		<foreach collection="list" item="item" index="index" separator=",">
+			(#{item.d_id},#{item.d_name},#{item.c_id})
+		</foreach>
+	</insert>
+
+
+	 <!-- 更新操作 -->
+	<update id="updateUser" parameterType="com.example.company.entity.DepartmentBean">
+		update tb_department set d_name=#{d_name},d_do=#{d_do},c_id=#{c_id} where d_id = #{d_id}
+	</update>
+	<!-- 删除操作    parameterType 接收值类型 -->
+	<delete id="deletUser" parameterType="Integer">
+		delete from tb_department where d_id=#{id}
+	</delete>
+	
+	<!-- 单个查询操作 -->
+	<select id="selectUser" parameterType="java.lang.Integer" resultMap="departmentMap">
+		select * from tb_department where c_name=#{id}
+	</select>
+		<!-- 所有查询操作 -->
+	<select id="selectAllUser" parameterType="java.lang.Integer" resultMap="departmentMap">
+	select * from tb_department
+	WHERE c_id=#{cid}
+	</select>
+	
+</mapper>
