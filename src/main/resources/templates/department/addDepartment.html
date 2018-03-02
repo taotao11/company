@@ -26,7 +26,7 @@
 		<div class="well">
 			<form rel="form" class="addForm" th:object="${departmentForm}" action="/department/addDepartmentByCid" method="post">
 				<div class="ts-message bg-warning" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></div>
-				<input type="hidden"  th:value="${session.company.c_id}" name="c_id">
+				<input type="hidden"  th:value="*{c_id}" name="c_id">
 				<label>部门名称<input class="form-control"  type="text" name="d_name"> </label><br/>
 				<p th:errors="*{d_name}"></p>
 				<label>行政内容<input class="form-control"  type="text" name="d_do"> </label><br/>

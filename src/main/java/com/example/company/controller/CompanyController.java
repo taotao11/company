@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,11 +41,12 @@ public class CompanyController {
      * 公司登录
      * @param dengluForm
      * @param result
-     * @param model
+     * @param request
      * @return
      */
     @RequestMapping(value = "/dengluCompeny",method = RequestMethod.POST)
-    public String dengluCompeny(@Valid DengluForm dengluForm, BindingResult result, HttpServletRequest request, Model model){
+    public String dengluCompeny(@Valid DengluForm dengluForm, BindingResult result, HttpServletRequest request,
+                                final RedirectAttributes attributes){
         //检验数据
         if (!UtilsMethods.clickCompanyFormData(result)){
             return "index";
@@ -62,13 +64,14 @@ public class CompanyController {
             if (companyBean.getC_code().equals(dengluForm.getC_code())){
                 System.out.println("登录成功");
                 request.getSession().setAttribute("company",companyBean);
+//               attributes.addFlashAttribute("c_id",companyBean.getC_id()); 闪存
                 return "redirect:/department/selectAllDepartmentByCid/" + companyBean.getC_id();
 
             }else {
-                model.addAttribute("message","组织机构code错误!!!");
+                attributes.addAttribute("message","组织机构code错误!!!");
             }
         }else {
-            model.addAttribute("message","公司不存在!!");
+            attributes.addAttribute("message","公司不存在!!");
         }
         return "index";
     }
@@ -92,7 +95,7 @@ public class CompanyController {
         }else {
             model.addAttribute("message","删除失败");
         }
-        return "redirect:/ompany/selectAllCompany/1";
+        return "redirect:/company/selectAllCompany/1";
     }
     /**
      * 查询单个公司信息
@@ -134,7 +137,7 @@ public class CompanyController {
         if (index > 0){
             model.addAttribute("message","修改成功");
             //重定向
-            return "redirect:/ompany/selectAllCompany/1";
+            return "redirect:/company/selectAllCompany/1";
         }
         return "upataeComppany";
     }
@@ -193,7 +196,7 @@ public class CompanyController {
         if (index > 0){
             model.addAttribute("message","添加成功");
             //重定向
-            return "redirect:/ompany/selectAllCompany/1";
+            return "redirect:/company/selectAllCompany/1";
         }
         return "addCompany";
     }

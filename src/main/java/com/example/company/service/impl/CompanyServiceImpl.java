@@ -93,11 +93,11 @@ public class CompanyServiceImpl implements CompanyService {
         PageHelper.startPage(currentPage, pageSize);
         //查询信息
         List<CompanyBean> list = mapper.selectAllUser();
+        System.out.println(list);
         //总记录数
         int count = mapper.countUser();
         PageBean<CompanyBean> pageBean = new PageBean<CompanyBean>(currentPage,pageSize,count);
         pageBean.setItems(list);
-        System.out.println(pageBean);
         return pageBean;
     }
 

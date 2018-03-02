@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css">
+	<style>
+		.dl-btn{
+			margin: 10px auto;
+			width: 220px;
+		}
+	</style>
+</head>
+<body>
+<!--登录开始  -->
+
+	<div class="denglu container text-center" style="max-width: 500px;margin-top:70px;">
+		<h2 class="page-header text-center">欢迎登录</h2>
+		<div class="well">
+			<form rel="form" class="dengluForm " th:object="${adminLogForm}" action="/adminLog" method="post">
+				<div class="text-danger" th:text="${message}" th:unless="${#strings.isEmpty(message)}"></div>
+				<label>用户名：<input type="text" class="form-control" name="name" /></label><br/>
+				<p th:errors="*{name}"></p>
+				<label>密码：<input type="text" class="form-control" name="pass" /></label><br/>
+				<p th:errors="*{pass}"></p>
+				<button class="form-control dl-btn">登录</button>
+			</form>
+		</div>
+	</div>
+
+
+</body>
+</html>

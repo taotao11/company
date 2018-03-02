@@ -11,7 +11,7 @@
 <body>
 <!--管理员列表  -->
 	<div class="container" style="max-width: 1300px">
-
+		<p class="page-header"><a th:href="@{/company/addCompany}" href="#">增加公司</a></p>
 		<div class="well" >
 			<table class="table table-striped text-center">
 				<tr>
@@ -20,6 +20,7 @@
 					<td>公司姓名</td>
 					<td>公司类型</td>
 					<td>组织机构</td>
+					<td>查看部门</td>
 					<td>修改操作</td>
 					<td>删除操作</td>
 				</tr>
@@ -35,12 +36,16 @@
 					<td th:text="${collect.c_code}">
 					</td>
 					<td>
+						<a class="btn bg-success" th:href="@{/selectAllDepartmentByCid/{id}(id=${collect.c_id})}" href="">查看部门</a>
+					</td>
+					<td>
 						<a class="btn bg-success" th:href="@{/company/selectCompany/{id}(id=${collect.c_name})}" href="upataeComppany.html">修改</a>
 					</td>
 					<td>
 						<a class="btn bg-success" th:href="@{/company/deletCompany/{id}(id=${collect.c_id})}" href="upataeComppany.html">删除</a>
 					</td>
 				</tr>
+
 				<tr>
 					<td colspan="2">
 						<a th:unless="${page.currentPage == 1}" href="#" th:href="@{/company/selectAllCompany/{id}(id=${page.currentPage - 1})}" class="btn">上一页</a>

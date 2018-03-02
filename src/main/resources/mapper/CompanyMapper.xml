@@ -47,8 +47,7 @@
 	</select>
 		<!-- 所有查询操作 -->
 	<select id="selectAllUser" parameterType="String" resultMap="companyMap">
-	select * from tb_company a,tb_department b
-	WHERE a.c_id = b.c_id
+	select * from tb_company
 	</select>
 	
 </mapper>

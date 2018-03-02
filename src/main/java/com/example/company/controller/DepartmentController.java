@@ -43,9 +43,8 @@ public class DepartmentController {
         System.out.println(index);
         if (index > 0){
             model.addAttribute("message","删除成功");
-            selectAllDepartmentByCid(cid,model);
         }
-        return "";
+        return "redirect:/department/selectAllDepartmentByCid/" + "" +cid;
     }
     /**
      * 修改部门信息
@@ -73,7 +72,7 @@ public class DepartmentController {
             System.out.println("修改成功");
             model.addAttribute("message","修改成功");
             //从定向部门列表页
-            selectAllDepartmentByCid(departmentBean.getC_id(),model);
+            return "redirect:/department/selectAllDepartmentByCid/" + "" + departmentBean.getC_id();
         }else{
             model.addAttribute("message","修改失败!!");
         }
@@ -112,6 +111,7 @@ public class DepartmentController {
         if(!UtilsMethods.clickCompanyFormData(result)){
             return "department/addDepartment";
         }
+        System.out.println(departmentForm);
         //对象复制
         DepartmentBean departmentBean = departmentForm.convert();
         List<DepartmentBean> list = new ArrayList<DepartmentBean>();
@@ -125,7 +125,7 @@ public class DepartmentController {
         if (index > 0){
             model.addAttribute("message","新增成功！！！");
             //从定向部门列表页
-            selectAllDepartmentByCid(departmentBean.getC_id(),model);
+            return "redirect:/department/selectAllDepartmentByCid/" + "" + departmentBean.getC_id();
         }else {
             model.addAttribute("message","新增失败！！！");
         }
@@ -137,9 +137,11 @@ public class DepartmentController {
      * @param model
      * @return
      */
-    @RequestMapping("/goAddDeparment")
-    public String goAddDepartment(Model model){
-        model.addAttribute("departmentForm",new DepartmentForm());
+    @RequestMapping("/goAddDeparment/{cid}")
+    public String goAddDepartment(@PathVariable("cid") int cid, Model model){
+        DepartmentForm departmentForm = new DepartmentForm();
+        departmentForm.setC_id(cid);
+        model.addAttribute("departmentForm",departmentForm);
         return "department/addDepartment";
     }
     /**
@@ -158,6 +160,7 @@ public class DepartmentController {
         }
         if(list != null){
             model.addAttribute("list",list);
+            model.addAttribute("c_id",cid);
             System.out.println(list);
         }else {
             model.addAttribute("message","没有部门请添加");
