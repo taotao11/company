@@ -4,9 +4,10 @@ import com.example.company.entity.DepartmentBean;
 import com.example.company.mapper.DepartmentMapper;
 import com.example.company.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service("departmentService")
 public class DepartmentServiceImpl implements DepartmentService {
     @Autowired
     private DepartmentMapper mapper;
@@ -44,7 +45,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     /**
-     *
+     *单个部门查询
      * @param id
      * @return
      * @throws Exception
@@ -54,9 +55,15 @@ public class DepartmentServiceImpl implements DepartmentService {
         return mapper.selectUser(id);
     }
 
+    /**
+     * 多个查询
+     * @param cid
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<DepartmentBean> selectAllUser(int cid) throws Exception {
-        return null;
+        return mapper.selectAllUser(cid);
     }
 
     @Override
@@ -64,8 +71,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         return null;
     }
 
+    /**
+     * 查询所有
+     * @param cid
+     * @return
+     * @throws Exception
+     */
     @Override
     public int countUser(int cid) throws Exception {
-        return 0;
+        return mapper.countUser(cid);
     }
 }

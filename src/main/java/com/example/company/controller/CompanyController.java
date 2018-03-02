@@ -5,19 +5,22 @@ import com.example.company.entity.PageBean;
 import com.example.company.form.CompanyForm;
 import com.example.company.form.DengluForm;
 import com.example.company.service.CompanyService;
+import com.example.company.uitl.UtilsMethods;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * 公司控制层
@@ -41,9 +44,9 @@ public class CompanyController {
      * @return
      */
     @RequestMapping(value = "/dengluCompeny",method = RequestMethod.POST)
-    public String dengluCompeny(@Valid DengluForm dengluForm, BindingResult result, HttpSession session, Model model){
+    public String dengluCompeny(@Valid DengluForm dengluForm, BindingResult result, HttpServletRequest request, Model model){
         //检验数据
-        if (!clickCompanyFormData(result)){
+        if (!UtilsMethods.clickCompanyFormData(result)){
             return "index";
         }
         //查询
@@ -58,8 +61,8 @@ public class CompanyController {
             //判断code是否一致
             if (companyBean.getC_code().equals(dengluForm.getC_code())){
                 System.out.println("登录成功");
-                session.setAttribute("company",companyBean);
-                return "department/departments";
+                request.getSession().setAttribute("company",companyBean);
+                return "redirect:/department/selectAllDepartmentByCid/" + companyBean.getC_id();
 
             }else {
                 model.addAttribute("message","组织机构code错误!!!");
@@ -119,7 +122,7 @@ public class CompanyController {
     @RequestMapping("upataeComppany")
     public String upataeComppany(@Valid CompanyForm companyForm,BindingResult result,Model model){
         //表单数据检查
-        if(!clickCompanyFormData(result)){
+        if(!UtilsMethods.clickCompanyFormData(result)){
             return "upataeComppany";
         }
         int index = 0;
@@ -164,24 +167,7 @@ public class CompanyController {
         return "addCompany";
     }
 
-    /**
-     * 检查表单数据验证
-     * @param result
-     * @return
-     */
-    public boolean clickCompanyFormData(BindingResult result){
-        //判断验证信息
-        if(result.hasErrors()) {
-            List<FieldError> fieldErrors = result.getFieldErrors();
-            //result.rejectValue("","",""); //自定义错误信息(属性名 错误信息 错误类型)
-            for (FieldError error : fieldErrors) {
-                System.out.println(error.getField() + ":" + error.getDefaultMessage() + ":" + error.getCode());
-
-            }
-            return false;
-        }
-        return  true;
-    }
+    
     /**
      * 添加公司信息
      *
@@ -190,7 +176,7 @@ public class CompanyController {
     @RequestMapping("/addCompanyInfo")
     public String addCompanyInfo(@Valid CompanyForm companyForm, BindingResult result, Model model){
         //判断验证信息
-        if(!clickCompanyFormData(result)) {
+        if(!UtilsMethods.clickCompanyFormData(result)) {
             return "addCompany";
         }
         //对象复制

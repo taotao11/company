@@ -5,11 +5,13 @@ package com.example.company.form;
  */
 
 import com.example.company.entity.DepartmentBean;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.BeanUtils;
 
 import javax.validation.constraints.NotBlank;
 
 public class DepartmentForm {
+    private int d_id;
     //部门名称
     @NotBlank(message = "部门名称不为空")
     private String d_name;
@@ -17,10 +19,18 @@ public class DepartmentForm {
     @NotBlank(message = "部门方向不为空")
     private String d_do;
     //外键 公司id
-    @NotBlank(message = "公司id不为空")
+    @Range(min = 1,message = "公司c_id不能为0")
     private  int c_id;
 
     public DepartmentForm() {
+    }
+
+    public int getD_id() {
+        return d_id;
+    }
+
+    public void setD_id(int d_id) {
+        this.d_id = d_id;
     }
 
     public String getD_name() {

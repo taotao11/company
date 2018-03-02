@@ -4,12 +4,12 @@
 <!-- 获得执行的方法 -->
 <mapper namespace="com.example.company.mapper.DepartmentMapper">
 <!-- 自定义返回结果 -->
-	<resultMap id="department" type="com.example.company.entity.DepartmentBean">
+	<resultMap id="departmentMap" type="com.example.company.entity.DepartmentBean">
 
 		<result property="d_id" column="d_id" javaType="java.lang.Integer" />
 	 	<result property="d_name" column="d_name" javaType="java.lang.String"/>
-		<result property="d_do" column="c_type" javaType="java.lang.String"/>
-		<result property="c_id" column="c_code" javaType="java.lang.Integer"/>
+		<result property="d_do" column="d_do" javaType="java.lang.String"/>
+		<result property="c_id" column="c_id" javaType="java.lang.Integer"/>
 	</resultMap>
 	  <!-- id要唯一的，一般是下拉类的方法名 -->
     <!-- 返回的是什么类型int -->
@@ -19,10 +19,10 @@
 	 <!-- 多次插入操作 -->
 	<insert id="insertUser" parameterType="java.util.List">
 		insert into
-		tb_department(d_id,d_name,c_id)
+		tb_department(d_id,d_name,d_do,c_id)
 		value
 		<foreach collection="list" item="item" index="index" separator=",">
-			(#{item.d_id},#{item.d_name},#{item.c_id})
+			(#{item.d_id},#{item.d_name},#{item.d_do},#{item.c_id})
 		</foreach>
 	</insert>
 
@@ -38,7 +38,7 @@
 	
 	<!-- 单个查询操作 -->
 	<select id="selectUser" parameterType="java.lang.Integer" resultMap="departmentMap">
-		select * from tb_department where c_name=#{id}
+		select * from tb_department where d_id=#{id}
 	</select>
 		<!-- 所有查询操作 -->
 	<select id="selectAllUser" parameterType="java.lang.Integer" resultMap="departmentMap">

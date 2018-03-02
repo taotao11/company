@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="UTF-8">
+<title>添加部门</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+	<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"/>-->
+	<link rel="stylesheet" th:href="@{../../css/bootstrap.min.css}" href="../../static/css/bootstrap.min.css">
+<style>
+	.zc-btn{
+		margin: 10px auto;
+		width: 220px;
+	}
+	.ts-message{
+		width: 220px;
+		height: 40px;
+		line-height: 40px;
+	}
+</style>
+</head>
+<body>
+<!--注册表单开始  -->
+	<div class="container text-center" style="max-width: 500px;margin-top: 60px">
+		<h2 class="page-header text-center">添加部门</h2>
+		<div class="well">
+			<form rel="form" class="addForm" th:object="${departmentForm}" action="/department/addDepartmentByCid" method="post">
+				<div class="ts-message bg-warning" th:unless="${#strings.isEmpty(message)}" th:text="${message}"></div>
+				<input type="hidden"  th:value="${session.company.c_id}" name="c_id">
+				<label>部门名称<input class="form-control"  type="text" name="d_name"> </label><br/>
+				<p th:errors="*{d_name}"></p>
+				<label>行政内容<input class="form-control"  type="text" name="d_do"> </label><br/>
+				<p th:errors="*{d_do}"></p>
+				<button class="form-control zc-btn">添加部门</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
