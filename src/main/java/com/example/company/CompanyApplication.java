@@ -5,6 +5,7 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.Properties;
 
@@ -14,6 +15,9 @@ import java.util.Properties;
  */
 //开始扫描Mapper包
 @MapperScan("com.example.company.mapper")
+//开启事务
+@EnableTransactionManagement
+//开启启动注解
 @SpringBootApplication
 public class CompanyApplication {
 	//配置mybatis的分页插件pageHelper

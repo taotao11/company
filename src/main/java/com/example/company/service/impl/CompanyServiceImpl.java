@@ -7,6 +7,7 @@ import com.example.company.service.CompanyService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class CompanyServiceImpl implements CompanyService {
      * @throws Exception
      */
     @Override
+    @Transactional
     public int insertUser(List<CompanyBean> list) throws Exception {
         return mapper.insertUser(list);
     }
@@ -39,6 +41,7 @@ public class CompanyServiceImpl implements CompanyService {
      * @throws Exception
      */
     @Override
+    @Transactional
     public int updateUser(CompanyBean admin) throws Exception {
         return mapper.updateUser(admin);
     }
@@ -50,6 +53,7 @@ public class CompanyServiceImpl implements CompanyService {
      * @throws Exception
      */
     @Override
+    @Transactional
     public int deletUser(int id) throws Exception {
         return mapper.deletUser(id);
     }

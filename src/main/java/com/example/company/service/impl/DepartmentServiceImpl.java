@@ -5,6 +5,7 @@ import com.example.company.mapper.DepartmentMapper;
 import com.example.company.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 @Service("departmentService")
@@ -18,6 +19,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @throws Exception
      */
     @Override
+    @Transactional
     public int insertUser(List<DepartmentBean> list) throws Exception {
         return mapper.insertUser(list);
     }
@@ -29,6 +31,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @throws Exception
      */
     @Override
+    @Transactional
     public int updateUser(DepartmentBean department) throws Exception {
         return mapper.updateUser(department);
     }
@@ -40,6 +43,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * @throws Exception
      */
     @Override
+    @Transactional
     public int deletUser(int id) throws Exception {
         return mapper.deletUser(id);
     }

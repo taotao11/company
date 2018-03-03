@@ -19,8 +19,7 @@
 					<td>部门id</td>
 					<td>部门名称</td>
 					<td>行政内容</td>
-					<td>修改操作</td>
-					<td>删除操作</td>
+					<td>操作</td>
 				</tr>
 				<tr th:unless="${#strings.isEmpty(message)}" >
 					<td colspan="6" th:text="${message}"></td>
@@ -36,8 +35,6 @@
 					</td>
 					<td>
 						<a class="btn bg-success" th:href="@{/department/goUpdateDepartment/{id}(id=${collect.d_id})}" href="upataeComppany.html">修改</a>
-					</td>
-					<td>
 						<a class="btn bg-success" th:href="@{/department/deletDepartment/{id}/{cid}(id=${collect.d_id},cid=${collect.c_id})}" href="upataeComppany.html">删除</a>
 					</td>
 				</tr>

@@ -1,10 +1,12 @@
 package com.example.company.controller;
 
 import com.example.company.entity.CompanyBean;
+import com.example.company.entity.DepartmentBean;
 import com.example.company.entity.PageBean;
 import com.example.company.form.CompanyForm;
 import com.example.company.form.DengluForm;
 import com.example.company.service.CompanyService;
+import com.example.company.service.DepartmentService;
 import com.example.company.uitl.UtilsMethods;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -14,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +35,53 @@ import java.util.List;
 public class CompanyController {
     @Autowired
     private CompanyService service;
+    @Autowired
+    private DepartmentService departmentService;
+
+    /**
+     *
+     * 公司信息查询
+     * @param name
+     * @return
+     */
+    @RequestMapping("/selectOneCompany")
+    public String selectOneCompany( String name,Model model){
+        if (name == null || name.equals("")){
+            return  "redirect:/company/selectAllCompany/1";
+        }
+        CompanyBean companyBean = new CompanyBean();
+        DepartmentBean departmentBean = new DepartmentBean();
+        try {
+            companyBean = service.selectUser(name);
+             if (companyBean != null){
+                 //查询部门信息
+                List<DepartmentBean> list = departmentService.selectAllUser(companyBean.getC_id());
+                if (list.size() != 0){
+                    companyBean.setItems(list);
+                    model.addAttribute("cmessage","hide");
+                    model.addAttribute("company",companyBean);
+                }else {
+                    model.addAttribute("dmessage","没有部门信息请添加!!");
+                }
+                 model.addAttribute("company",companyBean);
+             }else {
+                    model.addAttribute("message","公司不存在!!");
+                 model.addAttribute("company",new CompanyBean());
+             }
+
+        } catch (Exception e) {
+            model.addAttribute("message","公司不存在!!");
+            model.addAttribute("company",new CompanyBean());
+        }
+
+        return "departments";
+    }
+
+    /**
+     * 登录页跳转
+     * @param model
+     * @return
+     */
     @RequestMapping(value = {"/index","/"})
     public String index(Model model){
         model.addAttribute("dengluForm",new DengluForm());
