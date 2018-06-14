@@ -62,7 +62,7 @@ public class AdminController {
      */
     @RequestMapping("/selectAdminAll")
     public List<Admin> selectAllAdmin(){
-        List<Admin> list = adminService.selectList(new EntityWrapper<Admin>());
+        List<Admin> list = adminService.selectList(new EntityWrapper<Admin>().like("uname","小"));
         return list;
     }
 
@@ -179,7 +179,7 @@ public class AdminController {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setParent("com.example.");
+        pc.setParent("com");
         pc.setModuleName("generator");
         mpg.setPackageInfo(pc);
 

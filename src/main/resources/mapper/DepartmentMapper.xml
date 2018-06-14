@@ -32,7 +32,7 @@
 		update tb_department set d_name=#{d_name},d_do=#{d_do},c_id=#{c_id} where d_id = #{d_id}
 	</update>
 	<!-- 删除操作    parameterType 接收值类型 -->
-	<delete id="deletUser" parameterType="Integer">
+	<delete id="deletUser" parameterType="integer">
 		delete from tb_department where d_id=#{id}
 	</delete>
 	

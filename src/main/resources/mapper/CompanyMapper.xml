@@ -37,16 +37,16 @@
 		update tb_company set c_name=#{c_name},c_type=#{c_type},c_code=#{c_code} where c_id = #{c_id}
 	</update>
 	<!-- 删除操作    parameterType 接收值类型 -->
-	<delete id="deletUser" parameterType="Integer">
+	<delete id="deletUser" parameterType="integer">
 		delete from tb_company where c_id=#{id}
 	</delete>
 	
 	<!-- 单个查询操作 -->
-	<select id="selectUser" parameterType="String" resultMap="companyMap">
+	<select id="selectUser" parameterType="string" resultMap="companyMap">
 		select * from tb_company where c_name=#{id}
 	</select>
 		<!-- 所有查询操作 -->
-	<select id="selectAllUser" parameterType="String" resultMap="companyMap">
+	<select id="selectAllUser" parameterType="string" resultMap="companyMap">
 	select * from tb_company
 	</select>
 	

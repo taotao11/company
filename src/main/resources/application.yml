@@ -1,4 +1,8 @@
 #spring.profiles.active:dev 指定配置文件为当前活跃状态
+#springboot2.0 context-path 改变
+server:
+  servlet:
+    context-path: company
 spring:
   thymeleaf:
    cache: false
@@ -32,5 +36,7 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: true
+server:
+  port: 8081
 
    
